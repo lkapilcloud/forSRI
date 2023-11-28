@@ -1,0 +1,31 @@
+# Example for how to give permission to IAM user for they can list, get and pass IAM role
+MyIamPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: MyIamPolicy #Please type your policy name 
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'iam:PassRole'
+              - 'iam:GetRole'
+              - 'iam:ListRole'
+            Resource: '*'  # Replace with your role name which you want to allow or use '*' for they can use any role 
+      Users:
+        - UserName
+
+
+
+## Example for how to pass IAM role in EC2 creation template
+
+Resources:
+  EC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-id  # Specify the AMI ID for your desired operating system
+      InstanceType: t2.micro #please use your InstanceType
+      KeyName: # Please use your key
+      IamInstanceProfile: YourExistingIAMRoleName  # Replace with the name of your existing IAM role
+
+
